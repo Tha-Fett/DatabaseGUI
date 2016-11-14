@@ -1,0 +1,68 @@
+Create table CUSTOMER
+(Cust_id int NOT NULL,
+Name varchar(15),
+Phone varchar(12),
+PRIMARY KEY (Cust_id));
+
+Create table VEHICLE
+(Vehicle_no int NOT NULL, 
+V_type varchar(15) NOT NULL,
+Model varchar(15),
+Year int,
+PRIMARY KEY (Vehicle_no));
+
+Create table RENTS
+(Vehicle_no int NOT NULL,
+Cust_id int NOT NULL,
+Strt_date Date NOT NULL,
+R_type varchar(6),
+No_of int,
+Picked_up varchar(3),
+Daily NUMBER(5,2),
+Weekly NUMBER(5,2),
+V_type varchar(15) NOT NULL,
+Date_ret Date,
+Total NUMBER(6,2)
+Dropped_off varchar(3)
+PRIMARY KEY (Vehicle_no,Cust_id,Strt_date),
+FOREIGN KEY (Vehicle_no) REFERENCES VEHICLE (Vehicle_no),
+FOREIGN KEY (Cust_id) REFERENCES CUSTOMER (Cust_id),
+FOREIGN KEY (V_type) REFERENCES RATES (V_type));
+
+Create table RATES
+(V_type varchar(15) NOT NULL,
+Daily NUMBER(5,2),
+Weekly NUMBER(5,2),
+PRIMARY KEY (V_type));
+
+Create table OWNER
+(Owner_id int NOT NULL;
+PRIMARY KEY (Owner_id));
+
+Create table BANK
+(B_name varchar(15) NOT NULL,
+B_address varchar(15),
+Owner_id int NOT NULL,
+PRIMARY KEY (B_name),
+FOREIGN KEY (Owner_id) REFERENCES OWNER (Owner_id));
+
+Create table RENTAL_CO
+(C_name varchar(15) NOT NULL,
+C_address varchar(15),
+Owner_id int NOT NULL,
+PRIMARY KEY (C_name),
+FOREIGN KEY (Owner_id) REFERENCES OWNER (Owner_id));
+
+Create table INDIVIDUAL
+(Ssn int NOT NULL,
+Name varchar(15),
+Owner_id int NOT NULL,
+PRIMARY KEY (Ssn),
+FOREIGN KEY (Owner_id) REFERENCES OWNER (Owner_id));
+
+Create table OWNS
+(Owner_id int NOT NULL,
+Vehicle_no int NOT NULL,
+PRIMARY KEY (Owner_id,Vehicle_no),
+FOREIGN KEY (Owner_id) REFERENCES OWNER (Owner_id),
+FOREIGN KEY (Vehicle_no) REFERENCES VEHICLE (Vehicle_no));
